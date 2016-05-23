@@ -123,7 +123,7 @@
             "value": "[parameters('sshKeyData')]"
           },
           "imageReference": {
-            "value": "[variables(variables('rhel'))]"
+            "value": "[variables('rhel')]"
           }
         }
       }
