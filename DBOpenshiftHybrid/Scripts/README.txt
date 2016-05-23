@@ -1,0 +1,1 @@
+./Deploy-AzureResourceGroup.ps1 -ResourceGroupLocation northeurope -ResourceGroupName OpenshiftHybrid -TemplateParametersFile ..\Templates\azuredeploy.parameters.json

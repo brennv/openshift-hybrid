@@ -51,6 +51,7 @@
 
     "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('subnetName'))]",
     "VMSize": "Standard_D2_v2",
+    "VMSizeMaster": "Standard_D3_v2",
     "rhel": {
       "publisher": "RedHat",
       "offer": "RHEL",
@@ -171,7 +172,7 @@
             "value": "[variables('subnetRef')]"
           },
           "vmSize": {
-            "value": "[variables('VMSize')]"
+            "value": "[variables('VMSizeMaster')]"
           },
           "adminUsername": {
             "value": "[parameters('adminUsername')]"
