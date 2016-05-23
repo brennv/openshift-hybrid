@@ -1,29 +1,29 @@
 ﻿{
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-      "adminUsername": {
-        "type": "string",
-        "minLength": 1,
-        "metadata": {
-          "description": "User name for the Virtual Machines."
-        }
-      },
-      "sshKeyData": {
-        "type": "string",
-        "metadata": {
-          "description": "SSH rsa public key file as a string."
-        }
-      },
-      "numberOfNodes": {
-        "type": "int",
-        "defaultValue": 2,
-        "minValue": 2,
-        "maxValue": 20,
-        "metadata": {
-          "description": "Number of Openshift Nodes to deploy (max 30)"
-        }
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "adminUsername": {
+      "type": "string",
+      "minLength": 1,
+      "metadata": {
+        "description": "User name for the Virtual Machines."
       }
+    },
+    "sshKeyData": {
+      "type": "string",
+      "metadata": {
+        "description": "SSH rsa public key file as a string."
+      }
+    },
+    "numberOfNodes": {
+      "type": "int",
+      "defaultValue": 2,
+      "minValue": 2,
+      "maxValue": 20,
+      "metadata": {
+        "description": "Number of Openshift Nodes to deploy (max 30)"
+      }
+    }
   },
   "variables": {
     "vmachineTemplateUrl": "https://raw.githubusercontent.com/derdanu/openshift-hybrid/master/DBOpenshiftHybrid/Templates/vmaschine.json",
@@ -127,8 +127,47 @@
           }
         }
       }
+    },
+    {
+      "name": "master",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2013-03-01",
+      "dependsOn": [
+        "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
+        "[concat('Microsoft.Storage/storageAccounts/', variables('saName'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('vmachineTemplateUrl')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "vmName": {
+            "value": "master"
+          },
+          "sa": {
+            "value": "[variables('saName')]"
+          },
+          "subnetRef": {
+            "value": "[variables('subnetRef')]"
+          },
+          "vmSize": {
+            "value": "[variables('VMSize')]"
+          },
+          "adminUsername": {
+            "value": "[parameters('adminUsername')]"
+          },
+          "sshKeyData": {
+            "value": "[parameters('sshKeyData')]"
+          },
+          "imageReference": {
+            "value": "[variables('rhel')]"
+          }
+        }
+      }
     }
   ],
-    "outputs": {
-    }
+  "outputs": {
+  }
 }
