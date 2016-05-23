@@ -1,0 +1,134 @@
+﻿{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "adminUsername": {
+        "type": "string",
+        "minLength": 1,
+        "metadata": {
+          "description": "User name for the Virtual Machines."
+        }
+      },
+      "sshKeyData": {
+        "type": "string",
+        "metadata": {
+          "description": "SSH rsa public key file as a string."
+        }
+      },
+      "numberOfNodes": {
+        "type": "int",
+        "defaultValue": 3,
+        "minValue": 3,
+        "maxValue": 20,
+        "metadata": {
+          "description": "Number of Openshift Nodes to deploy (max 30)"
+        }
+      }
+  },
+  "variables": {
+    "vmachineTemplateUrl": "https://raw.githubusercontent.com/derdanu/openshift-hybrid/master/vmachine.jspn",
+    "apiVersion": "2015-06-15",
+    "saName": "[concat(uniqueString(resourceGroup().id), 'infranodesa')]",
+    "location": "[resourceGroup().location]",
+    "vhdStorageType": "Standard_LRS",
+    "virtualNetworkName": "openshiftVnet",
+    "addressPrefix": "10.0.0.0/16",
+    "subnetName": "infranodeSubnet",
+    "subnetPrefix": "10.0.1.0/24",
+    "vnetId": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
+
+    "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('subnetName'))]",
+    "VMSize": "Standard_D2_v2",
+    "rhel": {
+      "publisher": "RedHat",
+      "offer": "RHEL",
+      "sku": "7.2",
+      "version": "latest"
+    }
+
+
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[variables('saName')]",
+      "apiVersion": "[variables('apiVersion')]",
+      "location": "[variables('location')]",
+      "tags": {
+        "displayName": "StorageAccount"
+      },
+      "properties": {
+        "accountType": "[variables('vhdStorageType')]"
+      }
+    },
+    {
+      "apiVersion": "[variables('apiVersion')]",
+      "type": "Microsoft.Network/virtualNetworks",
+      "name": "[variables('virtualNetworkName')]",
+      "location": "[variables('location')]",
+      "tags": {
+        "displayName": "VirtualNetwork"
+      },
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[variables('addressPrefix')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[variables('subnetName')]",
+            "properties": {
+              "addressPrefix": "[variables('subnetPrefix')]"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "[concat('nodeSet', copyindex())]",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2013-03-01",
+      "copy": {
+        "name": "nodeSet",
+        "count": "[parameters('numberOfNodes')]"
+      },
+      "dependsOn": [
+        "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
+        "[concat('Microsoft.Storage/storageAccounts/', variables('saName'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('vmachineTemplateUrl')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "vmName": {
+            "value": "[concat('node', padLeft(add(copyindex(), 1), 2, '0'))]"
+          },
+          "sa": {
+            "value": "[variables('saName')]"
+          },
+          "subnetRef": {
+            "value": "[variables('subnetRef')]"
+          },
+          "vmSize": {
+            "value": "[variables('VMSize')]"
+          },
+          "adminUsername": {
+            "value": "[parameters('adminUsername')]"
+          },
+          "sshKeyData": {
+            "value": "[parameters('sshKeyData')]"
+          },
+          "imageReference": {
+            "value": "[variables(variables('rhel'))]"
+          }
+        }
+      }
+    }
+  ],
+    "outputs": {
+    }
+}
