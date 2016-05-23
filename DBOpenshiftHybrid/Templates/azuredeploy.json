@@ -15,6 +15,18 @@
         "description": "SSH rsa public key file as a string."
       }
     },
+    "sshKeyData2": {
+      "type": "string",
+      "metadata": {
+        "description": "SSH rsa public key file as a string."
+      }
+    },
+    "sshKeyData3": {
+      "type": "string",
+      "metadata": {
+        "description": "SSH rsa public key file as a string."
+      }
+    },
     "numberOfNodes": {
       "type": "int",
       "defaultValue": 2,
@@ -122,6 +134,12 @@
           "sshKeyData": {
             "value": "[parameters('sshKeyData')]"
           },
+          "sshKeyData2": {
+            "value": "[parameters('sshKeyData2')]"
+          },
+          "sshKeyData3": {
+            "value": "[parameters('sshKeyData3')]"
+          },
           "imageReference": {
             "value": "[variables('rhel')]"
           }
@@ -161,6 +179,12 @@
           "sshKeyData": {
             "value": "[parameters('sshKeyData')]"
           },
+          "sshKeyData2": {
+            "value": "[parameters('sshKeyData2')]"
+          },
+          "sshKeyData3": {
+            "value": "[parameters('sshKeyData3')]"
+          },
           "imageReference": {
             "value": "[variables('rhel')]"
           }
@@ -199,6 +223,12 @@
           },
           "sshKeyData": {
             "value": "[parameters('sshKeyData')]"
+          },
+          "sshKeyData2": {
+            "value": "[parameters('sshKeyData2')]"
+          },
+          "sshKeyData3": {
+            "value": "[parameters('sshKeyData3')]"
           },
           "imageReference": {
             "value": "[variables('rhel')]"

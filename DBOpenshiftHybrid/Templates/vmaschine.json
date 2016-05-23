@@ -23,6 +23,18 @@
         "description": "SSH rsa public key file as a string."
       }
     },
+    "sshKeyData2": {
+      "type": "string",
+      "metadata": {
+        "description": "SSH rsa public key file as a string."
+      }
+    },
+    "sshKeyData3": {
+      "type": "string",
+      "metadata": {
+        "description": "SSH rsa public key file as a string."
+      }
+    },
     "imageReference": {
       "type": "object",
       "metadata": {
@@ -92,6 +104,14 @@
                 {
                   "path": "[variables('sshKeyPath')]",
                   "keyData": "[parameters('sshKeyData')]"
+                },
+                {
+                  "path": "[variables('sshKeyPath')]",
+                  "keyData": "[parameters('sshKeyData2')]"
+                },
+                {
+                  "path": "[variables('sshKeyPath')]",
+                  "keyData": "[parameters('sshKeyData3')]"
                 }
               ]
             }
