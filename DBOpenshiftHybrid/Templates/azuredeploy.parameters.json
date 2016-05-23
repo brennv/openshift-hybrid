@@ -1,6 +1,18 @@
 ﻿{
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
+  "parameters": {
+    "adminUsername": {
+      "value": "dbadmin"
+    },
+    "sshKeyData": {
+      "value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCrr4mw4QkA3fiuHYghnHZkSmJAjI5Wa3cXQlUabVkzPbcpFbek/Y1tiqk1Ov9FCPJqfqSkegVQhro3bOJr37GTaRg4yFUwS0dU4W9UhETGGbZpwOZvpueOvrLcEOZo02zUfzzpXwLD8m96FW6tmxN8Za3m0oqyIIDzRyhsX4ciLARJ7MNvijraBe1r9FnNwE/sEldTStd8wsrkzihMPsqdHLgXWka7fo7oF9ixqJAHzFEsnuUZTxSJxsV1ZXZDjynu7dBdnAqbUm9CnFOAO034OUVUJ4oacAOLY/yfIQxBnTLY3wuqyaq5HRlapDoCaYWTn2ZSz0YydwmMPQp2zmrD cmilsted@cmilsted.fedora"
+    },
+    "sshKeyData2": {
+      "value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCfeM8t69KdzOHukE1E7gR6UjgnCyfjBZzwenZ/dDzpDuD9mZYZWc3iINFrPg20MZA0UvLpl/G/FcmhVJwv5tl2JKmXKakggRwaeRozS3fPqejvy1E8CmsgxwP8nW73I+Cp8DXHqOZrQ6IfNIKMLFZP1AC7Kd+pKIpuJ4uooDtdUEk4KbwuxnEqImOYwf8uOGL+qbUQeNdB5xs7o0SKUaZ4OUVVum/ICbD8Fj/wA87xMQXYV5DaYpWcWVDbrx+LcX3TIjRG+DxhqIHmIQR/K7eJvHV76IYciGGb8EzKZuSJIhXl+q55i9BBzfqImGlg4/s8p9UP4BlB4KjCg9j7fO2h OpenShift-Key"
+    },
+    "sshKeyData3": {
+      "value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDJP9TeZpmS3dBbW2vvpPYdkIxJYGFw6lhBLUZ6Y0Yp9vsf7I1l8kF5cujLuauhnR6MlbnKRq46sTJCa68jUF/6BGnE1/V//r8wqmWhO6gGmI6YZ2ttZN5OSRMoQtyVwhCJC2oEcVmbSWGqmv9Ns1yC82bmZRt4ZnQhhVK/xy7S0JmQwHMDamgCRE8XqQJLS0LXXMAomztALNSAMqX55n1SPVrl8+N7zGatEZ4KxOecR68EwAUOwwntlKEuwlKBIpP8bmgYlgjBEB3v7qAaPbMaWs+pIyeJCdIj1Qts5uqT/sgTD8SDkl2Il2Cfrxn7pEFizoTKv9qJMu0Bvq2gZ7XL dafalkne@DE-LOANER578"
     }
+  }
 }
