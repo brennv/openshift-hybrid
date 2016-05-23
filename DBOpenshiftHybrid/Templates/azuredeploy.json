@@ -168,7 +168,7 @@
       }
     },
     {
-      "name": "ansible",
+      "name": "service",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2013-03-01",
       "dependsOn": [
@@ -183,7 +183,7 @@
         },
         "parameters": {
           "vmName": {
-            "value": "ansible"
+            "value": "service"
           },
           "sa": {
             "value": "[variables('saName')]"
