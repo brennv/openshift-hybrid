@@ -183,7 +183,7 @@
         },
         "parameters": {
           "vmName": {
-            "value": "master"
+            "value": "ansible"
           },
           "sa": {
             "value": "[variables('saName')]"
