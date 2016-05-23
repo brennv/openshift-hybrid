@@ -28,7 +28,7 @@
   "variables": {
     "vmachineTemplateUrl": "https://raw.githubusercontent.com/derdanu/openshift-hybrid/master/DBOpenshiftHybrid/Templates/vmaschine.json",
     "apiVersion": "2015-06-15",
-    "saName": "[concat(uniqueString(resourceGroup().id), 'infranodesa')]",
+    "saName": "[concat(uniqueString(resourceGroup().id), 'vMachineSA')]",
     "location": "[resourceGroup().location]",
     "vhdStorageType": "Standard_LRS",
     "virtualNetworkName": "openshiftVnet",
