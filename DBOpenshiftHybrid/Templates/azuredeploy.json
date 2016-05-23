@@ -166,6 +166,45 @@
           }
         }
       }
+    },
+    {
+      "name": "ansible",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2013-03-01",
+      "dependsOn": [
+        "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
+        "[concat('Microsoft.Storage/storageAccounts/', variables('saName'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('vmachineTemplateUrl')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "vmName": {
+            "value": "master"
+          },
+          "sa": {
+            "value": "[variables('saName')]"
+          },
+          "subnetRef": {
+            "value": "[variables('subnetRef')]"
+          },
+          "vmSize": {
+            "value": "[variables('VMSize')]"
+          },
+          "adminUsername": {
+            "value": "[parameters('adminUsername')]"
+          },
+          "sshKeyData": {
+            "value": "[parameters('sshKeyData')]"
+          },
+          "imageReference": {
+            "value": "[variables('rhel')]"
+          }
+        }
+      }
     }
   ],
   "outputs": {
