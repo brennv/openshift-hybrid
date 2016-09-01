@@ -33,22 +33,21 @@
       "minValue": 2,
       "maxValue": 20,
       "metadata": {
-        "description": "Number of Openshift Nodes to deploy (max 30)"
+        "description": "Number of Openshift Nodes to deploy (max 20)"
       }
     }
   },
   "variables": {
-    "vmachineTemplateUrl": "https://raw.githubusercontent.com/jamarsto/openshift-hybrid/master/DBOpenshiftHybrid/Templates/vmaschine.json",
-    "apiVersion": "2015-06-15",
-    "saName": "[concat(uniqueString(resourceGroup().id), 'vmachinesa')]",
+    "OLDvmachineTemplateUrl": "https://raw.githubusercontent.com/jamarsto/openshift-hybrid/master/DBOpenshiftHybrid/Templates/vmaschine.json",
+    "vmachineTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'vmaschine.json')]",
+    "saName": "[concat(uniqueString(resourceGroup().id), 'vmaschinesa')]",
     "location": "[resourceGroup().location]",
     "vhdStorageType": "Premium_LRS",
-    "virtualNetworkName": "openshiftVnet",
+    "virtualNetworkName": "openshiftVNET",
     "addressPrefix": "10.0.0.0/16",
-    "subnetName": "infranodeSubnet",
+    "subnetName": "infranodeSNET",
     "subnetPrefix": "10.0.1.0/24",
     "vnetId": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
-
     "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('subnetName'))]",
     "VMSize": "Standard_DS12_v2",
     "VMSizeMaster": "Standard_DS12_v2",
@@ -58,14 +57,12 @@
       "sku": "7.2",
       "version": "latest"
     }
-
-
   },
   "resources": [
     {
       "type": "Microsoft.Storage/storageAccounts",
       "name": "[variables('saName')]",
-      "apiVersion": "[variables('apiVersion')]",
+      "apiVersion": "2016-01-01",
       "location": "[variables('location')]",
       "tags": {
         "displayName": "StorageAccount"
@@ -75,7 +72,7 @@
       }
     },
     {
-      "apiVersion": "[variables('apiVersion')]",
+      "apiVersion": "2016-03-30",
       "type": "Microsoft.Network/virtualNetworks",
       "name": "[variables('virtualNetworkName')]",
       "location": "[variables('location')]",
@@ -101,7 +98,7 @@
     {
       "name": "[concat('nodeSet', copyindex())]",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2013-03-01",
+      "apiVersion": "2016-02-01",
       "copy": {
         "name": "nodeSet",
         "count": "[parameters('numberOfNodes')]"
@@ -150,7 +147,7 @@
     {
       "name": "master",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2013-03-01",
+      "apiVersion": "2016-02-01",
       "dependsOn": [
         "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
         "[concat('Microsoft.Storage/storageAccounts/', variables('saName'))]"
@@ -195,7 +192,7 @@
     {
       "name": "service",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2013-03-01",
+      "apiVersion": "2016-02-01",
       "dependsOn": [
         "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
         "[concat('Microsoft.Storage/storageAccounts/', variables('saName'))]"
