@@ -38,11 +38,11 @@
     }
   },
   "variables": {
-    "vmachineTemplateUrl": "https://raw.githubusercontent.com/derdanu/openshift-hybrid/master/DBOpenshiftHybrid/Templates/vmaschine.json",
+    "vmachineTemplateUrl": "https://raw.githubusercontent.com/jamarsto/openshift-hybrid/master/DBOpenshiftHybrid/Templates/vmaschine.json",
     "apiVersion": "2015-06-15",
     "saName": "[concat(uniqueString(resourceGroup().id), 'vmachinesa')]",
     "location": "[resourceGroup().location]",
-    "vhdStorageType": "Standard_LRS",
+    "vhdStorageType": "Premium_LRS",
     "virtualNetworkName": "openshiftVnet",
     "addressPrefix": "10.0.0.0/16",
     "subnetName": "infranodeSubnet",
@@ -50,8 +50,8 @@
     "vnetId": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
 
     "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('subnetName'))]",
-    "VMSize": "Standard_D2_v2",
-    "VMSizeMaster": "Standard_D3_v2",
+    "VMSize": "Standard_DS12_v2",
+    "VMSizeMaster": "Standard_DS12_v2",
     "rhel": {
       "publisher": "RedHat",
       "offer": "RHEL",
