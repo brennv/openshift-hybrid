@@ -38,8 +38,8 @@
     }
   },
   "variables": {
-    "OLDvmachineTemplateUrl": "https://raw.githubusercontent.com/jamarsto/openshift-hybrid/master/DBOpenshiftHybrid/Templates/vmaschine.json",
-    "vmachineTemplateUrl": "[uri(deployment().properties.templateLink.uri, 'vmaschine.json')]",
+    "vmachineTemplateUrl": "https://raw.githubusercontent.com/jamarsto/openshift-hybrid/master/DBOpenshiftHybrid/Templates/vmaschine.json",
+    "aaavmachineTemplateUrl": "uri(deployment().properties.templateLink.uri, 'vmaschine.json')",
     "saName": "[concat(uniqueString(resourceGroup().id), 'vmaschinesa')]",
     "location": "[resourceGroup().location]",
     "vhdStorageType": "Premium_LRS",
@@ -62,7 +62,7 @@
     {
       "type": "Microsoft.Storage/storageAccounts",
       "name": "[variables('saName')]",
-      "apiVersion": "2016-01-01",
+      "apiVersion": "2015-06-15",
       "location": "[variables('location')]",
       "tags": {
         "displayName": "StorageAccount"
