@@ -214,7 +214,7 @@
             "value": "[variables('subnetRef')]"
           },
           "vmSize": {
-            "value": "[variables('VMSize')]"
+            "value": "Standard_DS2_v2"
           },
           "adminUsername": {
             "value": "[parameters('adminUsername')]"
