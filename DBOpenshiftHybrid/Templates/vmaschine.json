@@ -122,7 +122,7 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "[concat('http://', parameters('sa'), '.blob.core.windows.net/openshiftvmachines/', parameters('vmName'), '.vhd')]"
+              "uri": "https://cmilstedforum2016.blob.core.windows.net/cmilstedforum2016ctr/rhel72.vhd"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
