@@ -122,7 +122,7 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "https://cmilstedforum2016.blob.core.windows.net/cmilstedforum2016ctr/rhel72.vhd"
+              "uri": "https://vhdredhatforum2016.blob.core.windows.net/vhdrhel72/new-azure.vhd"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
